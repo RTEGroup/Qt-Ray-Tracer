@@ -34,6 +34,11 @@ void sRay::init()
     spheres.push_back(Sphere(Vec3f(-8.0,     -4, -25), 2 ,Vec3f(0.00, 1.00, 0.00), 1, 0.0));//green
     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));//light
 
+    //To display values in the LineEdit Widgets on GUI Startup
+    ui->lineEdit->setText(Vec3fToQString(0, 'x'));
+    ui->lineEdit_2->setText(Vec3fToQString(0, 'y'));
+    ui->lineEdit_3->setText(Vec3fToQString(0, 'z'));
+
 }
 
 float sRay::mix(const float &a, const float &b, const float &mix)
