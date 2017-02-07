@@ -28,6 +28,7 @@ public:
     ~sRay();
     void init();
     int render();
+    int width, height;
 
 private:
     std::vector<Sphere> spheres;
@@ -52,6 +53,9 @@ private slots:
 
     void renderClicked();
 
+    void on_lineEdit_4_textChanged(const QString &arg1);
+
+    void on_lineEdit_5_textChanged(const QString &arg1);
 };
 
 #endif // SRAY_H

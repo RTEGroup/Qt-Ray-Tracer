@@ -11,6 +11,8 @@ sRay::sRay(QWidget *parent) :
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_2->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_3->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_4->setValidator(new QIntValidator(0, 2000, this));
+    ui->lineEdit_5->setValidator(new QIntValidator(0, 2000, this));
 }
 
 sRay::~sRay()
@@ -146,15 +148,15 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 ///TODO - Get Dynamic input for image width and height
 int sRay::render()
 {
-    unsigned width = 1920, height = 1080;
+    //unsigned width = 1920, height = 1080;
     Vec3f *image = new Vec3f[width * height], *pixel = image;
     float invWidth = 1 / float(width), invHeight = 1 / float(height);
     float fov = 30, aspectratio = width / float(height);
     float angle = tan(M_PI * 0.5 * fov / 180.);
 
-    for (unsigned y = 0; y < height; ++y)
+    for (int y = 0; y < height; ++y)
     {
-        for (unsigned x = 0; x < width; ++x, ++pixel)
+        for (int x = 0; x < width; ++x, ++pixel)
         {
             float xx = (2 * ((x + 0.5) * invWidth) - 1) * angle * aspectratio;
             float yy = (1 - 2 * ((y + 0.5) * invHeight)) * angle;
@@ -166,7 +168,7 @@ int sRay::render()
 
     std::ofstream ofs("./render_qt2.ppm", std::ios::out | std::ios::binary);
     ofs << "P6\n" << width << " " << height << "\n255\n";
-    for (unsigned i = 0; i < width * height; ++i)
+    for (int i = 0; i < width * height; ++i)
     ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) << (unsigned char)(std::min(float(1), image[i].y) * 255) << (unsigned char)(std::min(float(1), image[i].z) * 255);
 
     ofs.close();
@@ -228,3 +230,15 @@ void sRay::renderClicked()
 
 
 
+
+void sRay::on_lineEdit_4_textChanged(const QString &arg1)
+{
+    QString Swidth = arg1;
+    width = Swidth.toFloat();
+}
+
+void sRay::on_lineEdit_5_textChanged(const QString &arg1)
+{
+    QString SHeight = arg1;
+    height = SHeight.toFloat();
+}
