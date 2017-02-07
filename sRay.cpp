@@ -233,12 +233,20 @@ void sRay::renderClicked()
 
 void sRay::on_lineEdit_4_textChanged(const QString &arg1)
 {
-    QString Swidth = arg1;
-    width = Swidth.toFloat();
+    QString swidth = arg1;
+    width = swidth.toFloat();
 }
 
 void sRay::on_lineEdit_5_textChanged(const QString &arg1)
 {
-    QString SHeight = arg1;
-    height = SHeight.toFloat();
+    QString sHeight = arg1;
+    height = sHeight.toFloat();
+}
+
+void sRay::on_lineEdit_15_textChanged(const QString &arg1)
+{
+   QString sN = arg1;
+   n = sN.toFloat();
+
+   ui->comboBox->
 }
