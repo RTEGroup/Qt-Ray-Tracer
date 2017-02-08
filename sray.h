@@ -30,6 +30,7 @@ public:
     int render();
     int width, height;
     int n;
+    QStringList sphereEntries;
 
 private:
     std::vector<Sphere> spheres;
