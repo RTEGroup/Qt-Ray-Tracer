@@ -6,6 +6,7 @@ sRay::sRay(QWidget *parent) :
     ui(new Ui::sRay)
 {
     ui->setupUi(this);
+    n=0;
 
     //Limits the Input to Floating Point Numbers with one decimal point
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
@@ -27,6 +28,8 @@ void sRay::init()
 
     ///TODO - Dynamically get input for all the features of the spheres.
     ///TODO - Add a way to alter the number of spheres being drawn
+
+
 
     spheres.push_back(Sphere(Vec3f( 0.0, -10004, -20), 2,Vec3f(1.00, 0.32, 0.36), 0, 0.0));
     spheres.push_back(Sphere(Vec3f( 0.0,      0, -25),     2, Vec3f(1.00, 0.32, 0.36), 0, 0.5));//red
@@ -233,12 +236,32 @@ void sRay::renderClicked()
 
 void sRay::on_lineEdit_4_textChanged(const QString &arg1)
 {
-    QString Swidth = arg1;
-    width = Swidth.toFloat();
+    QString sWidth = arg1;
+    width = sWidth.toFloat();
 }
 
 void sRay::on_lineEdit_5_textChanged(const QString &arg1)
 {
-    QString SHeight = arg1;
-    height = SHeight.toFloat();
+    QString sHeight = arg1;
+    height = sHeight.toFloat();
+}
+
+void sRay::on_lineEdit_15_textChanged(const QString &arg1)
+{
+    ui->comboBox->clear();
+
+    QString sN = arg1;
+    n = sN.toInt();
+
+    ui->comboBox->setMaxCount(n);
+
+    sphereEntries.clear();
+
+    for(int i=0;i<n;i++)
+    {
+        sphereEntries.append("Sphere " + QString::number(i+1));
+    }
+
+    ui->comboBox->addItems(sphereEntries);
+
 }
