@@ -36,7 +36,6 @@ public:
     std::vector<Sphere> spheres;
 
 private:
-    //std::vector<Sphere> spheres;
 
     Ui::sRay *ui; //THIS POINTER IS A FRIGGING GODSEND
 
@@ -44,27 +43,14 @@ private:
 
     Vec3f trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<Sphere> &spheres, const int &depth);
 
-
-
-
-    ///TODO - Uncomplicate the Function Name
-    QString Vec3fToQString(int index, char coordinate);
-
 private slots:
 
     void comboBoxActive();
-
     void changeLineEdit(int index);
-    void changeLineEdit2(int index);
-    //void changeLineEdit3(int index);
-
     void renderClicked();
-
     void on_lineEdit_4_textChanged(const QString &arg1);
-
     void on_lineEdit_5_textChanged(const QString &arg1);
     void on_lineEdit_15_textChanged(const QString &arg1);
-
     void on_lineEdit_textChanged(const QString &arg1);
     void on_lineEdit_2_textChanged(const QString &arg1);
     void on_lineEdit_3_textChanged(const QString &arg1);

@@ -18,11 +18,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     //Initializes an Object for the core Class
+
     sRay s;
-
-    //GUI is drawn now
     s.show();
-
     s.init();
 
     //Begins event loop
