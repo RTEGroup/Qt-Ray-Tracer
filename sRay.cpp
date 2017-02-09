@@ -6,7 +6,10 @@ sRay::sRay(QWidget *parent) :
     ui(new Ui::sRay)
 {
     ui->setupUi(this);
-    n=0;
+    n=6;
+    width=1920;
+    height=1080;
+    index=1;
 
     //Limits the Input to Floating Point Numbers with one decimal point
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
@@ -23,28 +26,30 @@ sRay::~sRay()
 
 
 //Initializes the Spheres.
+
+
 void sRay::init()
 {
 
-    ///TODO - Dynamically get input for all the features of the spheres.
-    ///TODO - Add a way to alter the number of spheres being drawn
 
-
-
+    /*
     spheres.push_back(Sphere(Vec3f( 0.0, -10004, -20), 2,Vec3f(1.00, 0.32, 0.36), 0, 0.0));
     spheres.push_back(Sphere(Vec3f( 0.0,      0, -25),     2, Vec3f(1.00, 0.32, 0.36), 0, 0.5));//red
     spheres.push_back(Sphere(Vec3f( 8.0,     -4, -25),     2, Vec3f(0.90, 0.76, 0.46), 1, 0.0));//yellow
     spheres.push_back(Sphere(Vec3f( 8.0,      4, -25),     2, Vec3f(0.65, 0.77, 0.97), 1, 0.0));//blue
     spheres.push_back(Sphere(Vec3f(-8.0,      4, -25),     2, Vec3f(0.90, 0.90, 0.90), 1, 0.0));//black
     spheres.push_back(Sphere(Vec3f(-8.0,     -4, -25), 2 ,Vec3f(0.00, 1.00, 0.00), 1, 0.0));//green
-    spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));//light
+     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
+*/
 
-    //To display values in the LineEdit Widgets on GUI Startup
-    ui->lineEdit->setText(Vec3fToQString(0, 'x'));
-    ui->lineEdit_2->setText(Vec3fToQString(0, 'y'));
-    ui->lineEdit_3->setText(Vec3fToQString(0, 'z'));
+    for(int i=0;i<n;i++)
+    spheres.push_back(Sphere());
+
+
+
 
 }
+
 
 float sRay::mix(const float &a, const float &b, const float &mix)
 {
@@ -149,9 +154,9 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 
 ///TODO - Use libpng to render .png instead of .ppm images
 ///TODO - Get Dynamic input for image width and height
-int sRay::render()
+void sRay::render()
 {
-    //unsigned width = 1920, height = 1080;
+
     Vec3f *image = new Vec3f[width * height], *pixel = image;
     float invWidth = 1 / float(width), invHeight = 1 / float(height);
     float fov = 30, aspectratio = width / float(height);
@@ -177,7 +182,7 @@ int sRay::render()
     ofs.close();
     delete [] image;
 
-    return 1;
+
 }
 
 
@@ -186,10 +191,12 @@ void sRay::comboBoxActive()
 {
 
     //Gets the current active index of the Combo Box and stores it in an integer variable
-    int index = ui->comboBox->currentIndex();
+    index = ui->comboBox->currentIndex();
 
     //Calls the Slot that updates the Line Edit boxes
     changeLineEdit(index);
+    changeLineEdit2(index);
+    //changeLineEdit3(index);
 }
 
 //Function to convert Vec3 to QString based on the coordinated
@@ -217,9 +224,25 @@ void sRay::changeLineEdit(int index)
             ui->lineEdit_3->setText(Vec3fToQString(index, 'z'));
 }
 
+void sRay::changeLineEdit2(int index)
+{
+    ui->lineEdit_6->setText(QString::number(spheres[index].surfaceColor.x));
+    ui->lineEdit_7->setText(QString::number(spheres[index].surfaceColor.y));
+    ui->lineEdit_8->setText(QString::number(spheres[index].surfaceColor.z));
+    ui->lineEdit_14->setText(QString::number(spheres[index].emissionColor.x));
+    ui->lineEdit_13->setText(QString::number(spheres[index].emissionColor.y));
+    ui->lineEdit_12->setText(QString::number(spheres[index].emissionColor.z));
+    ui->lineEdit_9->setText(QString::number(spheres[index].radius));
+    ui->lineEdit_11->setText(QString::number(spheres[index].transparency));
+    ui->lineEdit_10->setText(QString::number(spheres[index].reflection));
+
+
+
+}
+
 void sRay::renderClicked()
 {
-    int finish=render(); // Generates a warning. For the timebeing.
+    render(); // Generates a warning. For the timebeing.
 
     ///TODO - Get this abomination working
     //while(finish!=1)
@@ -248,6 +271,8 @@ void sRay::on_lineEdit_5_textChanged(const QString &arg1)
 
 void sRay::on_lineEdit_15_textChanged(const QString &arg1)
 {
+    spheres.clear();
+
     ui->comboBox->clear();
 
     QString sN = arg1;
@@ -264,4 +289,79 @@ void sRay::on_lineEdit_15_textChanged(const QString &arg1)
 
     ui->comboBox->addItems(sphereEntries);
 
+    init();
 }
+
+void sRay::on_lineEdit_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].center.x = arg1.toFloat();
+}
+
+void sRay::on_lineEdit_2_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].center.y = arg1.toFloat();
+}
+
+void sRay::on_lineEdit_3_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].center.z = arg1.toFloat();
+}
+
+void sRay::on_lineEdit_6_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].surfaceColor.x=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_7_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].surfaceColor.y=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_8_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].surfaceColor.z=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_14_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].emissionColor.x=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_13_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].emissionColor.y=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_12_textChanged(const QString &arg1)
+{
+    QString value = arg1;
+    spheres[index].emissionColor.z=arg1.toFloat();
+}
+
+void sRay::on_lineEdit_9_textChanged(const QString &arg1)
+{
+    QString value=arg1;
+    spheres[index].radius = arg1.toFloat();
+}
+
+
+void sRay::on_lineEdit_11_textChanged(const QString &arg1)
+{
+    QString value =arg1;
+    spheres[index].transparency = arg1.toFloat();
+}
+
+void sRay::on_lineEdit_10_textChanged(const QString &arg1)
+{
+    QString value =arg1;
+    spheres[index].reflection = arg1.toFloat();
+}
+
