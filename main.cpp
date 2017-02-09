@@ -20,11 +20,10 @@ int main(int argc, char *argv[])
     //Initializes an Object for the core Class
     sRay s;
 
-    //Initializes the std::vector to hold the spheres
-    s.init();
-
     //GUI is drawn now
     s.show();
+
+    s.init();
 
     //Begins event loop
     return a.exec();

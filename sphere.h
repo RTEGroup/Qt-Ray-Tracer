@@ -19,6 +19,8 @@ class Sphere
 
         Sphere(const Vec3f &c, const float &r, const Vec3f &sc, const float &refl = 0, const float &transp = 0,  const Vec3f &ec = 0) : center(c), radius(r), radius2(r * r), surfaceColor(sc), emissionColor(ec), transparency(transp), reflection(refl) {}
 
+        Sphere() : center(0), radius(0), radius2(0), surfaceColor(0), emissionColor(0), transparency(0), reflection(0) {}
+
     	bool intersect(const Vec3f &rayorig, const Vec3f &raydir, float &t0, float &t1) const
    		{
 
