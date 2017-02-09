@@ -11,12 +11,22 @@ sRay::sRay(QWidget *parent) :
     height=1080;
     index=1;
 
-    //Limits the Input to Floating Point Numbers with one decimal point
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_2->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_3->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_4->setValidator(new QIntValidator(0, 2000, this));
     ui->lineEdit_5->setValidator(new QIntValidator(0, 2000, this));
+    ui->lineEdit_6->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_7->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_8->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_9->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_10->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_11->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_12->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_13->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_14->setValidator(new QDoubleValidator(-100, 100, 1, this));
+    ui->lineEdit_15->setValidator(new QIntValidator(1, 100, this));
+
 }
 
 sRay::~sRay()
@@ -24,15 +34,11 @@ sRay::~sRay()
     delete ui;
 }
 
-
-//Initializes the Spheres.
-
-
 void sRay::init()
 {
 
+    //UNCOMMENT THESE DEFAULT VALUES FOR DEBUGGING. SET No.of Spheres TO 7
 
-    /*
     spheres.push_back(Sphere(Vec3f( 0.0, -10004, -20), 2,Vec3f(1.00, 0.32, 0.36), 0, 0.0));
     spheres.push_back(Sphere(Vec3f( 0.0,      0, -25),     2, Vec3f(1.00, 0.32, 0.36), 0, 0.5));//red
     spheres.push_back(Sphere(Vec3f( 8.0,     -4, -25),     2, Vec3f(0.90, 0.76, 0.46), 1, 0.0));//yellow
@@ -40,16 +46,11 @@ void sRay::init()
     spheres.push_back(Sphere(Vec3f(-8.0,      4, -25),     2, Vec3f(0.90, 0.90, 0.90), 1, 0.0));//black
     spheres.push_back(Sphere(Vec3f(-8.0,     -4, -25), 2 ,Vec3f(0.00, 1.00, 0.00), 1, 0.0));//green
     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
-    */
 
 
-    for(int i=0;i<n;i++)
-    spheres.push_back(Sphere());
-
-
-
-
-
+    //COMMENT THE FOLLOWING IF YOU DON'T WANT TO ENTER ALL THOSE DAMN ATTRIBUTES WHILE DEBUGGING
+    //for(int i=0;i<n;i++)
+    //   spheres.push_back(Sphere());
 }
 
 
@@ -155,7 +156,6 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 //Function to Render the final .ppm image
 
 ///TODO - Use libpng to render .png instead of .ppm images
-///TODO - Get Dynamic input for image width and height
 void sRay::render()
 {
 
@@ -197,37 +197,14 @@ void sRay::comboBoxActive()
 
     //Calls the Slot that updates the Line Edit boxes
     changeLineEdit(index);
-    changeLineEdit2(index);
-    //changeLineEdit3(index);
+
 }
 
-//Function to convert Vec3 to QString based on the coordinated
-QString sRay::Vec3fToQString(int index, char coordinate)
-{
-    if(coordinate=='x')
-
-        /* Refers to the X coordinate of the center of the Sphere present
-        in the "index" position of the vector. Thank you OOPS :)*/
-
-        return(QString::number(spheres[index].center.x));
-
-    else if(coordinate=='y')
-        return(QString::number(spheres[index].center.y));
-    else
-        return(QString::number(spheres[index].center.z));
-}
-
-//Slot to set the values for the Line Edit Widgets
 void sRay::changeLineEdit(int index)
 {
-
-            ui->lineEdit->setText(Vec3fToQString(index, 'x'));
-            ui->lineEdit_2->setText(Vec3fToQString(index, 'y'));
-            ui->lineEdit_3->setText(Vec3fToQString(index, 'z'));
-}
-
-void sRay::changeLineEdit2(int index)
-{
+    ui->lineEdit->setText(QString::number(spheres[index].center.x));
+    ui->lineEdit_2->setText(QString::number(spheres[index].center.y));
+    ui->lineEdit_3->setText(QString::number(spheres[index].center.z));
     ui->lineEdit_6->setText(QString::number(spheres[index].surfaceColor.x));
     ui->lineEdit_7->setText(QString::number(spheres[index].surfaceColor.y));
     ui->lineEdit_8->setText(QString::number(spheres[index].surfaceColor.z));
@@ -237,9 +214,6 @@ void sRay::changeLineEdit2(int index)
     ui->lineEdit_9->setText(QString::number(spheres[index].radius));
     ui->lineEdit_11->setText(QString::number(spheres[index].transparency));
     ui->lineEdit_10->setText(QString::number(spheres[index].reflection));
-
-
-
 }
 
 void sRay::renderClicked()
@@ -261,14 +235,12 @@ void sRay::renderClicked()
 
 void sRay::on_lineEdit_4_textChanged(const QString &arg1)
 {
-    QString sWidth = arg1;
-    width = sWidth.toFloat();
+    width = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_5_textChanged(const QString &arg1)
 {
-    QString sHeight = arg1;
-    height = sHeight.toFloat();
+    height = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_15_textChanged(const QString &arg1)
