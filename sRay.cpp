@@ -39,11 +39,13 @@ void sRay::init()
     spheres.push_back(Sphere(Vec3f( 8.0,      4, -25),     2, Vec3f(0.65, 0.77, 0.97), 1, 0.0));//blue
     spheres.push_back(Sphere(Vec3f(-8.0,      4, -25),     2, Vec3f(0.90, 0.90, 0.90), 1, 0.0));//black
     spheres.push_back(Sphere(Vec3f(-8.0,     -4, -25), 2 ,Vec3f(0.00, 1.00, 0.00), 1, 0.0));//green
-     spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
-*/
+    spheres.push_back(Sphere(Vec3f( 0.0,     20, -30),     3, Vec3f(0.00, 0.00, 0.00), 0, 0.0, Vec3f(3)));
+    */
+
 
     for(int i=0;i<n;i++)
     spheres.push_back(Sphere());
+
 
 
 
@@ -242,7 +244,7 @@ void sRay::changeLineEdit2(int index)
 
 void sRay::renderClicked()
 {
-    render(); // Generates a warning. For the timebeing.
+    render();
 
     ///TODO - Get this abomination working
     //while(finish!=1)
@@ -275,8 +277,7 @@ void sRay::on_lineEdit_15_textChanged(const QString &arg1)
 
     ui->comboBox->clear();
 
-    QString sN = arg1;
-    n = sN.toInt();
+    n = arg1.toInt();
 
     ui->comboBox->setMaxCount(n);
 
@@ -294,74 +295,75 @@ void sRay::on_lineEdit_15_textChanged(const QString &arg1)
 
 void sRay::on_lineEdit_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].center.x = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_2_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].center.y = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_3_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].center.z = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_6_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].surfaceColor.x=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_7_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].surfaceColor.y=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_8_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].surfaceColor.z=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_14_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].emissionColor.x=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_13_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].emissionColor.y=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_12_textChanged(const QString &arg1)
 {
-    QString value = arg1;
+
     spheres[index].emissionColor.z=arg1.toFloat();
 }
 
 void sRay::on_lineEdit_9_textChanged(const QString &arg1)
 {
-    QString value=arg1;
+
     spheres[index].radius = arg1.toFloat();
+    spheres[index].radius2 = spheres[index].radius * spheres[index].radius;
 }
 
 
 void sRay::on_lineEdit_11_textChanged(const QString &arg1)
 {
-    QString value =arg1;
+
     spheres[index].transparency = arg1.toFloat();
 }
 
 void sRay::on_lineEdit_10_textChanged(const QString &arg1)
 {
-    QString value =arg1;
+
     spheres[index].reflection = arg1.toFloat();
 }
 
