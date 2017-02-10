@@ -18,7 +18,7 @@
     <rect>
      <x>270</x>
      <y>130</y>
-     <width>71</width>
+     <width>101</width>
      <height>21</height>
     </rect>
    </property>
@@ -39,9 +39,9 @@
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>130</x>
      <y>240</y>
-     <width>47</width>
+     <width>51</width>
      <height>21</height>
     </rect>
    </property>
@@ -262,9 +262,9 @@
   <widget class="QLabel" name="label_12">
    <property name="geometry">
     <rect>
-     <x>150</x>
+     <x>140</x>
      <y>410</y>
-     <width>41</width>
+     <width>51</width>
      <height>16</height>
     </rect>
    </property>
@@ -285,9 +285,9 @@
   <widget class="QLabel" name="label_13">
    <property name="geometry">
     <rect>
-     <x>480</x>
+     <x>470</x>
      <y>410</y>
-     <width>61</width>
+     <width>81</width>
      <height>20</height>
     </rect>
    </property>
@@ -308,9 +308,9 @@
   <widget class="QLabel" name="label_14">
    <property name="geometry">
     <rect>
-     <x>310</x>
+     <x>300</x>
      <y>410</y>
-     <width>81</width>
+     <width>91</width>
      <height>20</height>
     </rect>
    </property>
@@ -333,12 +333,12 @@
     <rect>
      <x>430</x>
      <y>240</y>
-     <width>151</width>
+     <width>181</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Emission Color (For Lights only) </string>
+    <string>Emission Color (For Lights) </string>
    </property>
   </widget>
   <widget class="QLabel" name="label_17">
@@ -413,9 +413,9 @@
   <widget class="QLabel" name="label_15">
    <property name="geometry">
     <rect>
-     <x>210</x>
+     <x>200</x>
      <y>50</y>
-     <width>81</width>
+     <width>101</width>
      <height>16</height>
     </rect>
    </property>
