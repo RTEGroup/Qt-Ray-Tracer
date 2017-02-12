@@ -162,7 +162,7 @@ void sRay::render()
     Vec3f *image = new Vec3f[width * height], *pixel = image;
     float invWidth = 1 / float(width), invHeight = 1 / float(height);
     float fov = 30, aspectratio = width / float(height);
-    float angle = tan(M_PI * 0.5 * fov / 180.);
+    float angle = tan(3.14 * 0.5 * fov / 180.);
 
     for (int y = 0; y < height; ++y)
     {
