@@ -7,12 +7,12 @@ sRay::sRay(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::sRay)
 {
-    QDesktopWidget d;
+    //QDesktopWidget d;
 
     ui->setupUi(this);
-    this->resize(d.geometry().width(), d.geometry().height());
+    //this->resize(d.geometry().width(), d.geometry().height());
 
-    this->setWindowState(Qt::WindowFullScreen);
+    //this->setWindowState(Qt::WindowFullScreen);
     n=6;
     width=1920;
     height=1080;
@@ -235,6 +235,7 @@ void sRay::renderClicked()
 
     if(success==1)
     {
+        //File Path is hard coded for now
         QPixmap pix("C:/Ray Tracer/Qt-Img/Qt-Ray-Tracer/img_render.ppm");
         ui->label_21->setPixmap(pix);
     }
