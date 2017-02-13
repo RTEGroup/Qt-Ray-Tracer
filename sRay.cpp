@@ -1,15 +1,24 @@
 #include "sray.h"
+#include <QDesktopWidget>
 #include "ui_sray.h"
+#include <qpixmap.h>
 
 sRay::sRay(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::sRay)
 {
+    QDesktopWidget d;
+
     ui->setupUi(this);
+    this->resize(d.geometry().width(), d.geometry().height());
+
+    this->setWindowState(Qt::WindowFullScreen);
     n=6;
     width=1920;
     height=1080;
     index=1;
+
+    ui->label_21->setStyleSheet("QLabel { background-color : white}");
 
     ui->lineEdit->setValidator(new QDoubleValidator(-100, 100, 1, this));
     ui->lineEdit_2->setValidator(new QDoubleValidator(-100, 100, 1, this));
@@ -156,7 +165,7 @@ Vec3f sRay::trace(const Vec3f &rayorig, const Vec3f &raydir, const std::vector<S
 //Function to Render the final .ppm image
 
 ///TODO - Use libpng to render .png instead of .ppm images
-void sRay::render()
+int sRay::render()
 {
 
     Vec3f *image = new Vec3f[width * height], *pixel = image;
@@ -176,13 +185,15 @@ void sRay::render()
         }
     }
 
-    std::ofstream ofs("./render_qt2.ppm", std::ios::out | std::ios::binary);
+    std::ofstream ofs("./img_render.ppm", std::ios::out | std::ios::binary);
     ofs << "P6\n" << width << " " << height << "\n255\n";
     for (int i = 0; i < width * height; ++i)
     ofs << (unsigned char)(std::min(float(1), image[i].x) * 255) << (unsigned char)(std::min(float(1), image[i].y) * 255) << (unsigned char)(std::min(float(1), image[i].z) * 255);
 
     ofs.close();
     delete [] image;
+
+    return 1;
 
 
 }
@@ -218,15 +229,15 @@ void sRay::changeLineEdit(int index)
 
 void sRay::renderClicked()
 {
-    render();
 
-    ///TODO - Get this abomination working
-    //while(finish!=1)
-    //{
-    //  ui->pushButton->setEnabled(false);
-    //}
+    int success=render();
 
-    ///TODO - Get dynamic input for the file name and location
+
+    if(success==1)
+    {
+        QPixmap pix("C:/Ray Tracer/Qt-Img/Qt-Ray-Tracer/img_render.ppm");
+        ui->label_21->setPixmap(pix);
+    }
 
 }
 

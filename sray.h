@@ -27,8 +27,9 @@ public:
     explicit sRay(QWidget *parent = 0);
     //sRay():width(1920), height(1080), n(0), index(0) {}
     ~sRay();
+    int flag=0;
     void init();
-    void render();
+    int render();
     int width, height;
     int n;
     int index;
